@@ -8,6 +8,10 @@ export async function setupKeys() {
     "https://swift.org/keys/all-keys.asc"
   );
 
+  core.debug("Examining verification keys");
+  await exec(`file "${path}"`);
+  await exec(`cat "${path}"`);
+
   core.debug("Importing verification keys");
   await exec(`gpg --import "${path}"`);
 
