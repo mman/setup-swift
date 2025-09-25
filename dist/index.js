@@ -81,7 +81,7 @@ async function setupKeys() {
     let path = await toolCache.downloadTool("https://swift.org/keys/all-keys.asc");
     core.debug("Examining verification keys");
     await (0, exec_1.exec)(`file "${path}"`);
-    const isPlaintext = await (0, exec_1.exec)(`gunzip --test "${path}"`, undefined, { silent: true });
+    const isPlaintext = await (0, exec_1.exec)(`gunzip --test "${path}"`, undefined, { silent: true, ignoreReturnCode: true });
     core.debug("Importing verification keys");
     await (0, exec_1.exec)('bash', ['-c', `${isPlaintext ? "cat" : "zcat"} "${path}" | gpg --import`]);
     core.debug("Refreshing keys");
