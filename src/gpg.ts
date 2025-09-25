@@ -10,9 +10,10 @@ export async function setupKeys() {
 
   core.debug("Examining verification keys");
   await exec(`file "${path}"`);
+  const isPlaintext = await exec(`gunzip --test "${path}"`, undefined, { silent: true });
 
   core.debug("Importing verification keys");
-  await exec('bash', ['-c', `zcat "${path}" | gpg --import`]);
+  await exec('bash', ['-c', `${isPlaintext ? "cat" : "zcat"} "${path}" | gpg --import`]);
 
   core.debug("Refreshing keys");
   await refreshKeys();
