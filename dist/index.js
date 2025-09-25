@@ -82,7 +82,7 @@ async function setupKeys() {
     core.debug("Examining verification keys");
     await (0, exec_1.exec)(`file "${path}"`);
     core.debug("Importing verification keys");
-    await (0, exec_1.exec)(`zcat ${path} | gpg --import -`);
+    await (0, exec_1.exec)('bash', ['-c', `zcat "${path}" | gpg --import`]);
     core.debug("Refreshing keys");
     await refreshKeys();
 }

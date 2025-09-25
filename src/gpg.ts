@@ -12,7 +12,7 @@ export async function setupKeys() {
   await exec(`file "${path}"`);
 
   core.debug("Importing verification keys");
-  await exec(`zcat ${path} | gpg --import -`);
+  await exec('bash', ['-c', `zcat "${path}" | gpg --import`]);
 
   core.debug("Refreshing keys");
   await refreshKeys();
