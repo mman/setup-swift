@@ -9,12 +9,10 @@ export async function setupKeys() {
   );
 
   core.debug("Examining verification keys");
-  await exec(`echo "${path}"`);
   await exec(`file "${path}"`);
-  await exec(`cat "${path}"`);
 
   core.debug("Importing verification keys");
-  await exec(`gpg --import "${path}"`);
+  await exec(`zcat ${path} | gpg --import -`);
 
   core.debug("Refreshing keys");
   await refreshKeys();
