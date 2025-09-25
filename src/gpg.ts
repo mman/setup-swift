@@ -9,6 +9,7 @@ export async function setupKeys() {
   );
 
   core.debug("Examining verification keys");
+  await exec(`echo "${path}"`);
   await exec(`file "${path}"`);
   await exec(`cat "${path}"`);
 
